@@ -11,7 +11,7 @@
     "lint:fix": "eslint src --ext ts,tsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,md,json}\"",
     "type-check": "tsc --noEmit",
-    "prepare": "husky install",
+    "prepare": "husky || echo \"Husky failed, skipping...\"",
     "test": "jest",
     "test:watch": "jest --watch"
   },
