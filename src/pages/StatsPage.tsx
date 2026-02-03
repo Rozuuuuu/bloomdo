@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useTodoStore } from '../store/todoStore';
 import { todoUtils } from '../store/todoStore';
 
@@ -30,7 +29,6 @@ import Header from '../components/layout/Header';
 import BottomNav from '../components/layout/BottomNav';
 
 const StatsPage: React.FC = () => {
-  const navigate = useNavigate();
   const { tasks, getTaskStats } = useTodoStore();
   const [timeframe, setTimeframe] = useState<'week' | 'month' | 'year'>('week');
   const [analyticsData, setAnalyticsData] = useState<AnalyticsData | null>(null);
@@ -94,18 +92,6 @@ const StatsPage: React.FC = () => {
 
     setAnalyticsData(data);
   }, [tasks, timeframe]); // Removed getTaskStats to avoid potential infinite loops
-
-  const handleShare = () => {
-    // In a real app, implement sharing functionality
-    console.log('Share analytics');
-    if (navigator.share) {
-      navigator.share({
-        title: 'My Productivity Analytics',
-        text: `My current efficiency score is ${analyticsData?.efficiencyScore}%! Check out BloomDo for task management.`,
-        url: window.location.href,
-      });
-    }
-  };
 
   const handleTimeframeChange = (newTimeframe: 'week' | 'month' | 'year') => {
     setTimeframe(newTimeframe);
