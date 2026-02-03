@@ -23,7 +23,7 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       token: null,
       isAuthenticated: false,
-      login: async (email: string, password: string) => {
+    login: async (email: string) => {
         // This will be replaced with actual API call
         const mockUser = { id: '1', email, name: 'John Doe' }
         const mockToken = 'mock-jwt-token'

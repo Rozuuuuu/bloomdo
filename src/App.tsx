@@ -1,34 +1,32 @@
-import { BrowserRouter as Router } from 'react-router-dom'
-import AppRoutes from './routes'
-import { Toaster } from 'react-hot-toast'
-import { ErrorBoundary } from './components/common/ErrorBoundary'
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRoutes from './routes';
+import { Toaster } from 'react-hot-toast';
+import { ErrorBoundary } from './components/common/ErrorBoundary';
+import './styles/globals.css';
 
 function App() {
   return (
     <ErrorBoundary>
       <Router>
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-off-white">
           <AppRoutes />
           <Toaster
             position="top-right"
             toastOptions={{
               duration: 4000,
               style: {
-                background: '#363636',
-                color: '#fff',
+                background: '#3E2723',
+                color: '#FDFBF7',
+                borderRadius: '0.5rem',
               },
               success: {
-                duration: 3000,
-                iconTheme: {
-                  primary: '#10b981',
-                  secondary: '#fff',
+                style: {
+                  background: '#4CAF50',
                 },
               },
               error: {
-                duration: 4000,
-                iconTheme: {
-                  primary: '#ef4444',
-                  secondary: '#fff',
+                style: {
+                  background: '#f44336',
                 },
               },
             }}
@@ -36,7 +34,7 @@ function App() {
         </div>
       </Router>
     </ErrorBoundary>
-  )
+  );
 }
 
-export default App
+export default App;

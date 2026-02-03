@@ -1,48 +1,49 @@
-import { Link } from 'react-router-dom'
-import { useAuthStore } from '@store/authStore'
+import React from 'react';
+import { useThemeStore } from '../../store/themeStore';
 
-export const Header = () => {
-  const { user, logout } = useAuthStore()
+const Header: React.FC = () => {
+  const { isDarkMode, toggleTheme } = useThemeStore();
 
   return (
-    <header className="bg-white shadow-sm">
-      <div className="container-custom">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <Link to="/" className="text-xl font-bold text-primary-600">
-              MyApp
-            </Link>
-            <nav className="ml-10 space-x-4">
-              <Link to="/" className="text-gray-700 hover:text-primary-600">
-                Home
-              </Link>
-              <Link to="/dashboard" className="text-gray-700 hover:text-primary-600">
-                Dashboard
-              </Link>
-            </nav>
+    <header className="sticky top-0 z-50 bg-off-white/90 dark:bg-near-black/80 backdrop-blur-xl border-b border-border-warm dark:border-border-dark">
+      <div className="flex items-center px-5 py-4 justify-between max-w-lg mx-auto w-full">
+        <div className="flex items-center gap-2.5">
+          <div className="bg-golden-yellow dark:bg-dark-golden text-chocolate-brown dark:text-near-black rounded-lg flex size-8 items-center justify-center">
+            <span className="material-symbols-outlined text-xl font-bold">
+              check_circle
+            </span>
           </div>
+          <h2 className="text-xl font-bold tracking-tight text-chocolate-brown dark:text-ivory">
+            BloomDo
+          </h2>
+        </div>
+        
+        <div className="flex items-center gap-3">
+          <button className="flex size-9 items-center justify-center rounded-full bg-border-warm/30 dark:bg-border-dark text-chocolate-brown dark:text-ivory">
+            <span className="material-symbols-outlined text-[22px]">search</span>
+          </button>
           
-          <div className="flex items-center space-x-4">
-            {user ? (
-              <>
-                <span className="text-gray-700">{user.email}</span>
-                <button onClick={logout} className="btn-secondary">
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <Link to="/login" className="text-gray-700 hover:text-primary-600">
-                  Login
-                </Link>
-                <Link to="/register" className="btn-primary">
-                  Sign Up
-                </Link>
-              </>
-            )}
+          {/* Theme Toggle */}
+          <button 
+            onClick={toggleTheme}
+            className="flex size-9 items-center justify-center rounded-full bg-border-warm/30 dark:bg-border-dark text-chocolate-brown dark:text-ivory"
+          >
+            <span className="material-symbols-outlined text-[22px]">
+              {isDarkMode ? 'light_mode' : 'dark_mode'}
+            </span>
+          </button>
+          
+          <div className="size-9 rounded-full overflow-hidden border border-border-warm dark:border-border-dark">
+            <img 
+              alt="Profile" 
+              className="w-full h-full object-cover" 
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyGvW92bGUaXAr1M-uVGOxV9gz6gvPmYWhMTOQCwDFdZG0_n-1n4SXkr-5zo0wM6bZ0mKJu-NjwtOyFz3O_D8YWq4TqRtQzc19Un9cxtDPQr-aOs4zlGprBtWR3Go04J1GMcS9z4tTbWAH-r6dsngCxbUgcPhem8Nsc8YKuEJFlkenW61yr-O0ypFQz-Wwu8E3asWWFHgwk9CSJ4_a7_y5Jks8g2MLz4ph1VhYD7L4VFAExS7Gyt4HNz3NtEzHl7zDFZQ7SXOPNWv-" 
+            />
           </div>
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
+
+export default Header;

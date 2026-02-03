@@ -1,72 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+.glow-yellow {
+  filter: drop-shadow(0 0 12px rgba(244, 192, 37, 0.4));
+}
+
+.progress-ring-circle {
+  transition: stroke-dashoffset 0.35s;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+/* Settings Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #3f3f3f;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked+.slider {
+  background-color: #f4c025;
+}
+
+input:checked+.slider:before {
+  transform: translateX(20px);
+}
+
+/* Team Status Dot */
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #221e10;
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+}
+
+
+
 @layer base {
-  :root {
-    --foreground-rgb: 0, 0, 0;
-    --background-start-rgb: 255, 255, 255;
-    --background-end-rgb: 255, 255, 255;
+  .material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --foreground-rgb: 255, 255, 255;
-      --background-start-rgb: 0, 0, 0;
-      --background-end-rgb: 0, 0, 0;
-    }
+  .material-symbols-outlined.filled {
+    font-variation-settings: "FILL" 1;
   }
 
-  * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-  }
-
-  html,
+  /* Light theme (default) */
   body {
-    max-width: 100vw;
-    overflow-x: hidden;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Manrope', 'Inter', system-ui, sans-serif;
+    @apply bg-off-white text-chocolate-brown;
+    -webkit-font-smoothing: antialiased;
+    min-height: max(884px, 100dvh);
   }
 
-  body {
-    color: rgb(var(--foreground-rgb));
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        rgb(var(--background-end-rgb))
-      )
-      rgb(var(--background-start-rgb));
+  /* Dark theme */
+  .dark body {
+    @apply bg-near-black text-ivory;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 
-  a {
-    color: inherit;
-    text-decoration: none;
+  .glow-ring {
+    box-shadow: 0 0 20px rgba(244, 192, 37, 0.2);
   }
 
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
+  /* Smooth transitions for analytics */
+  .analytics-transition {
+    @apply transition-all duration-300 ease-in-out;
   }
 
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+  .task-card {
+    @apply transition-all duration-200 ease-in-out;
   }
 
-  ::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 4px;
+  .task-card:hover {
+    @apply transform translate-x-1;
   }
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+  .priority-badge-high {
+    @apply text-[10px] font-bold px-1.5 py-0.5 rounded bg-golden-yellow/20 text-chocolate-brown border border-golden-yellow/30 uppercase tracking-tighter;
+  }
+
+  .priority-badge-medium {
+    @apply text-[10px] font-bold px-1.5 py-0.5 rounded bg-chocolate-brown/10 text-chocolate-brown uppercase tracking-tighter;
+  }
+
+  .priority-badge-low {
+    @apply text-[10px] font-bold px-1.5 py-0.5 rounded bg-leaf-green/10 text-leaf-green uppercase tracking-tighter;
+  }
+
+  /* Dark mode variants */
+  .dark .priority-badge-high {
+    @apply bg-dark-golden/20 text-near-black border-dark-golden/30;
+  }
+
+  .dark .priority-badge-medium {
+    @apply bg-ivory/10 text-ivory;
+  }
+
+  .dark .priority-badge-low {
+    @apply bg-dark-leaf-green/10 text-dark-leaf-green;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .task-card:active {
+    @apply bg-[#F7F3EE];
+  }
+
+  .dark .task-card:active {
+    @apply bg-[#1A1A1A];
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border-top: 1px solid theme('colors.calendar-grid');
+  }
+
+  .dark .calendar-grid {
+    border-top: 1px solid theme('colors.dark-calendar-grid');
+  }
+
+  .calendar-cell {
+    border-right: 1px solid theme('colors.calendar-grid');
+    border-bottom: 1px solid theme('colors.calendar-grid');
+    aspect-ratio: 1/1;
+  }
+
+  .dark .calendar-cell {
+    border-right: 1px solid theme('colors.dark-calendar-grid');
+    border-bottom: 1px solid theme('colors.dark-calendar-grid');
+  }
+
+  .custom-checkbox {
+    @apply h-5 w-5 rounded border-stone-300 text-amber-accent focus:ring-amber-accent focus:ring-offset-0 transition-all cursor-pointer;
+  }
+
+  .dark .custom-checkbox {
+    @apply border-dark-brown-grid bg-transparent text-dark-form-amber focus:ring-dark-form-amber;
+  }
+
+  .ios-toggle:checked+.ios-toggle-label {
+    @apply bg-form-stem-green;
+  }
+
+  .dark .ios-toggle:checked+.ios-toggle-label {
+    @apply bg-dark-form-leaf-green;
+  }
+
+  .ios-toggle:checked+.ios-toggle-label::after {
+    transform: translateX(20px);
+  }
+
+  .ios-toggle-label::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 27px;
+    height: 27px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .dark .ios-toggle-label::after {
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .ai-gradient {
+    background: linear-gradient(135deg, #2D1B10 0%, #1A0F09 100%);
+  }
+
+  .glow-path {
+    filter: drop-shadow(0 0 4px #FDB813);
   }
 }
 
 @layer components {
+
+  /* Light theme components */
   .btn-primary {
-    @apply bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply bg-golden-yellow text-chocolate-brown px-4 py-2 rounded-lg hover:bg-[#EBB400] transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .btn-secondary {
@@ -74,14 +239,43 @@
   }
 
   .input-field {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-golden-yellow focus:border-transparent;
   }
 
-  .card {
-    @apply bg-white rounded-lg shadow-md p-6;
+  .priority-badge-high {
+    @apply text-[10px] font-bold px-1.5 py-0.5 rounded bg-golden-yellow/20 text-chocolate-brown border border-golden-yellow/30 uppercase tracking-tighter;
   }
 
-  .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  .priority-badge-medium {
+    @apply text-[10px] font-bold px-1.5 py-0.5 rounded bg-chocolate-brown/10 text-chocolate-brown uppercase tracking-tighter;
+  }
+
+  .priority-badge-low {
+    @apply text-[10px] font-bold px-1.5 py-0.5 rounded bg-leaf-green/10 text-leaf-green uppercase tracking-tighter;
+  }
+
+  /* Dark theme components */
+  .dark .btn-primary {
+    @apply bg-dark-golden text-near-black hover:bg-[#EBB400];
+  }
+
+  .dark .btn-secondary {
+    @apply bg-border-dark text-ivory hover:bg-[#3A3A3A];
+  }
+
+  .dark .input-field {
+    @apply border-border-dark bg-dark-charcoal focus:ring-dark-golden focus:border-transparent;
+  }
+
+  .dark .priority-badge-high {
+    @apply bg-dark-golden text-near-black border-dark-golden;
+  }
+
+  .dark .priority-badge-medium {
+    @apply bg-dark-amber/20 text-dark-amber border-dark-amber/30;
+  }
+
+  .dark .priority-badge-low {
+    @apply bg-dark-leaf-green/20 text-dark-leaf-green border-dark-leaf-green/30;
   }
 }
