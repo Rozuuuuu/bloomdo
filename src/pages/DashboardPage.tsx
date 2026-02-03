@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import Header from '../components/layout/Header';
 import BottomNav from '../components/layout/BottomNav';
 import TaskCard from '../components/tasks/TaskCard';
@@ -10,11 +12,12 @@ import { FilterType } from '../types/todo.types';
 
 const DashboardPage: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
+  const navigate = useNavigate();
 
   const {
     todayTasks,
     filteredTasks,
-    toggleTask,  // setSelectedTask,
+    toggleTask,
     getTaskStats,
   } = useTodoStore();
 
@@ -26,28 +29,23 @@ const DashboardPage: React.FC = () => {
     toggleTask(taskId);
   };
 
-  //const handleTaskClick = (taskId: string) => {
-  // setSelectedTask(taskId);
-  // In the future, this could navigate to a task detail page
-  // console.log('Selected task:', taskId);
-  // };
-
   const handleAddTask = () => {
-    // This will open a task creation modal
-    console.log('Add new task');
+    toast('Task creation coming soon!', { icon: '✨' });
+  };
+
+  const handleStartFocus = () => {
+    navigate('/focus-mode');
   };
 
   return (
-    // 1. Root container background
     <div className="min-h-screen bg-off-white dark:bg-background-dark transition-colors duration-200">
       <Header />
-
       <main className="max-w-lg mx-auto pb-32">
         <AISuggestionCard
           title="Focus Session"
           description='Deep work on "Project Bloom"'
           actionText="Start"
-          onAction={() => console.log('Start focus session')}
+          onAction={handleStartFocus}
         />
 
         <FilterTabs
@@ -113,7 +111,7 @@ const DashboardPage: React.FC = () => {
       />
 
       <BottomNav />
-    </div>
+    </div >
   );
 };
 

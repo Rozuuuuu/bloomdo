@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-hot-toast';
 import { Task } from '../../types/todo.types';
 import CalendarCell from './CalendarCell';
 
@@ -10,21 +11,21 @@ interface CalendarViewProps {
 
 const CalendarView: React.FC<CalendarViewProps> = ({ selectedDate, onDateSelect, tasks }) => {
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  
+
   // Generate calendar days for current month
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
-  
+
   // Get first day of month and total days
   const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
   const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0);
   const totalDays = lastDayOfMonth.getDate();
   const startingDay = firstDayOfMonth.getDay(); // 0 = Sunday
-  
+
   // Generate calendar days
   const calendarDays = [];
-  
+
   // Previous month days
   const prevMonthLastDay = new Date(currentYear, currentMonth, 0).getDate();
   for (let i = startingDay - 1; i >= 0; i--) {
@@ -35,7 +36,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ selectedDate, onDateSelect,
       tasks: [] as Task[],
     });
   }
-  
+
   // Current month days
   for (let i = 1; i <= totalDays; i++) {
     const date = new Date(currentYear, currentMonth, i);
@@ -54,7 +55,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ selectedDate, onDateSelect,
       tasks: dayTasks,
     });
   }
-  
+
   // Next month days (to fill the grid)
   const totalCells = 42; // 6 weeks * 7 days
   const nextMonthDays = totalCells - calendarDays.length;
@@ -67,13 +68,20 @@ const CalendarView: React.FC<CalendarViewProps> = ({ selectedDate, onDateSelect,
     });
   }
 
+  const handleFeatureClick = (feature: string) => {
+    toast(`${feature} coming soon!`, { icon: '🚧' });
+  };
+
   return (
     <div className="bg-white dark:bg-dark-charcoal">
       {/* Calendar Header */}
-      <header className="sticky top-0 z-50 bg-white/90 dark:bg-dark-charcoal/80 backdrop-blur-md border-b border-grid-brown dark:border-dark-brown-grid">
+      <header className="sticky top-[73px] z-40 bg-white/90 dark:bg-dark-charcoal/80 backdrop-blur-md border-b border-grid-brown dark:border-dark-brown-grid transition-colors">
         <div className="flex items-center px-4 h-16 justify-between">
           <div className="flex items-center gap-3">
-            <button className="p-2 -ml-2 text-cocoa-brown dark:text-light-cream hover:bg-stone-100 dark:hover:bg-white/5 rounded-full transition-colors">
+            <button
+              onClick={() => handleFeatureClick('Menu')}
+              className="p-2 -ml-2 text-cocoa-brown dark:text-light-cream hover:bg-stone-100 dark:hover:bg-white/5 rounded-full transition-colors"
+            >
               <span className="material-symbols-outlined">menu</span>
             </button>
             <h1 className="text-lg font-semibold tracking-tight text-cocoa-brown dark:text-light-cream">
@@ -81,10 +89,16 @@ const CalendarView: React.FC<CalendarViewProps> = ({ selectedDate, onDateSelect,
             </h1>
           </div>
           <div className="flex items-center gap-1">
-            <button className="p-2 text-cocoa-brown dark:text-light-cream hover:bg-stone-100 dark:hover:bg-white/5 rounded-full transition-colors">
+            <button
+              onClick={() => handleFeatureClick('Search')}
+              className="p-2 text-cocoa-brown dark:text-light-cream hover:bg-stone-100 dark:hover:bg-white/5 rounded-full transition-colors"
+            >
               <span className="material-symbols-outlined text-xl">search</span>
             </button>
-            <button className="p-2 text-cocoa-brown dark:text-light-cream hover:bg-stone-100 dark:hover:bg-white/5 rounded-full transition-colors">
+            <button
+              onClick={() => handleFeatureClick('Filters')}
+              className="p-2 text-cocoa-brown dark:text-light-cream hover:bg-stone-100 dark:hover:bg-white/5 rounded-full transition-colors"
+            >
               <span className="material-symbols-outlined text-xl">tune</span>
             </button>
           </div>
