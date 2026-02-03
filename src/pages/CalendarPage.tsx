@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import Header from '../components/layout/Header';
 import BottomNav from '../components/layout/BottomNav';
 import CalendarView from '../components/calendar/CalendarView';
@@ -48,9 +49,6 @@ const CalendarPage: React.FC = () => {
         </div>
       </main>
 
-      import {toast} from 'react-hot-toast';
-
-      // ... (top of file changes to import toast)
 
       {/* Add Task FAB */}
       <button

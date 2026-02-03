@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import Header from '../components/layout/Header';
 import BottomNav from '../components/layout/BottomNav';
 
 export default function ProfilePage() {
@@ -7,7 +6,27 @@ export default function ProfilePage() {
 
     return (
         <div className="bg-background-light dark:bg-profile-bg-dark font-display text-gray-900 dark:text-ivory min-h-screen pb-20">
-            <Header />
+            {/* Custom Profile Header */}
+            <header className="sticky top-0 z-50 bg-background-light/90 dark:bg-profile-bg-dark/80 backdrop-blur-xl border-b border-border-warm dark:border-white/5">
+                <div className="flex items-center px-5 py-4 justify-between max-w-lg mx-auto w-full">
+                    <button
+                        onClick={() => navigate(-1)}
+                        className="w-10 h-10 -ml-2 flex items-center justify-center rounded-full text-gray-900 dark:text-ivory hover:bg-black/5 dark:hover:bg-white/10 active:scale-95 transition-all"
+                    >
+                        <span className="material-symbols-outlined">arrow_back</span>
+                    </button>
+                    <h1 className="text-xl font-bold tracking-tight text-gray-900 dark:text-ivory absolute left-1/2 -translate-x-1/2">
+                        Profile
+                    </h1>
+                    <button
+                        onClick={() => navigate('/settings')}
+                        className="w-10 h-10 -mr-2 flex items-center justify-center rounded-full text-gray-900 dark:text-ivory hover:bg-black/5 dark:hover:bg-white/10 active:scale-95 transition-all"
+                        aria-label="Settings"
+                    >
+                        <span className="material-symbols-outlined">settings</span>
+                    </button>
+                </div>
+            </header>
             <div className="max-w-md mx-auto flex flex-col pb-10">
                 {/* Header replaced by Top Nav */}
 
@@ -53,15 +72,6 @@ export default function ProfilePage() {
                 </div>
 
                 {/* Settings Link (Moved from Header) */}
-                <div className="mt-2 text-right px-4">
-                    <button
-                        onClick={() => navigate('/settings')}
-                        className="text-primary text-sm font-bold hover:underline flex items-center justify-end gap-1 ml-auto"
-                    >
-                        <span className="material-symbols-outlined text-lg">settings</span>
-                        App Settings
-                    </button>
-                </div>
 
                 {/* Personal Information Section */}
                 <div className="mt-4">
