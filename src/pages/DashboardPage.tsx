@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
 import Header from '../components/layout/Header';
 import BottomNav from '../components/layout/BottomNav';
 import TaskCard from '../components/tasks/TaskCard';
 import AISuggestionCard from '../components/tasks/AISuggestionCard';
 import FilterTabs from '../components/tasks/FilterTabs';
 import FloatingActionButton from '../components/ui/FloatingActionButton';
+import AddTaskModal from '../components/tasks/AddTaskModal';
 import { useTodoStore } from '../store/todoStore';
 import { FilterType } from '../types/todo.types';
 
 const DashboardPage: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
+  const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const navigate = useNavigate();
 
   const {
@@ -30,7 +31,7 @@ const DashboardPage: React.FC = () => {
   };
 
   const handleAddTask = () => {
-    toast('Task creation coming soon!', { icon: '✨' });
+    setIsAddTaskOpen(true);
   };
 
   const handleStartFocus = () => {
@@ -108,6 +109,11 @@ const DashboardPage: React.FC = () => {
         onClick={handleAddTask}
         icon="add"
         tooltip="Add new task"
+      />
+
+      <AddTaskModal
+        isOpen={isAddTaskOpen}
+        onClose={() => setIsAddTaskOpen(false)}
       />
 
       <BottomNav />
