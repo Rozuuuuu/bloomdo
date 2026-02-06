@@ -1,9 +1,11 @@
 import React from 'react';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { useThemeStore } from '../../store/themeStore';
 
 const Header: React.FC = () => {
   const { isDarkMode, toggleTheme } = useThemeStore();
+  const navigate = useNavigate();
 
   const handleFeatureClick = (feature: string) => {
     toast(`The ${feature} feature is coming soon!`, {
@@ -44,7 +46,7 @@ const Header: React.FC = () => {
           </button>
 
           <button
-            onClick={() => handleFeatureClick('User Profile')}
+            onClick={() => navigate('/profile')}
             className="size-9 rounded-full overflow-hidden border border-border-warm dark:border-border-dark hover:opacity-80 transition-opacity"
           >
             <img
